@@ -1,0 +1,23 @@
+language: bash
+services:
+  - docker
+
+env:
+  - VARIANT=latest
+  - VARIANT=dev
+  - VARIANT=xdebug
+  - VARIANT=composer
+  - VARIANT=stan
+
+before_script:
+  - image_name="wikimediade/fundraising-frontend"; build_tag="$VARIANT${TRAVIS_TAG+-$TRAVIS_TAG}"
+
+script:
+  - |
+    (
+      set -e
+      set -x
+      docker build -t "$image_name:$build_tag" $VARIANT
+    )
+
+# TODO Create build account in docker hub and add credentials to Travis, push image
