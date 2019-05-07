@@ -49,13 +49,11 @@ RUN docker-php-source extract \
 BASE;
 
 $labelTemplate = <<<'LBL'
-LABEL maintainer="fundraising-tech@wikimedia.de"
-
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BUILD_VERSION
 
-# Labels.
+LABEL maintainer="fundraising-tech@wikimedia.de"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.name="wikimediade/fundraising-frontend"

@@ -41,13 +41,11 @@ RUN pecl install xdebug-2.7.2 \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
-LABEL maintainer="fundraising-tech@wikimedia.de"
-
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BUILD_VERSION
 
-# Labels.
+LABEL maintainer="fundraising-tech@wikimedia.de"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.name="wikimediade/fundraising-frontend"

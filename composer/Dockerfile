@@ -45,13 +45,11 @@ ENV COMPOSER_HOME /tmp
 WORKDIR /app
 
 CMD ["composer"]
-LABEL maintainer="fundraising-tech@wikimedia.de"
-
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BUILD_VERSION
 
-# Labels.
+LABEL maintainer="fundraising-tech@wikimedia.de"
 LABEL org.label-schema.schema-version="1.0"
 LABEL org.label-schema.build-date=$BUILD_DATE
 LABEL org.label-schema.name="wikimediade/fundraising-frontend"
