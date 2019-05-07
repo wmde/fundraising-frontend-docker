@@ -1,4 +1,6 @@
+#
 # This is an automatically generated Dockerfile, do not change this!
+#
 FROM php:7.3-fpm
 
 RUN mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/cache \
@@ -31,10 +33,6 @@ RUN docker-php-source extract \
     && docker-php-source delete \
     && rm -rf /tmp/konto_check-*
 
-RUN apt-get install -y ssmtp \
-    && echo "mailhub=mailhog:1025" >> /etc/ssmtp/ssmtp.conf
-
-COPY ./mailhog.ini /usr/local/etc/php/conf.d/mailhog.ini
 LABEL maintainer="fundraising-tech@wikimedia.de"
 
 ARG BUILD_DATE

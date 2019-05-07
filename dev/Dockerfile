@@ -33,18 +33,10 @@ RUN docker-php-source extract \
     && docker-php-source delete \
     && rm -rf /tmp/konto_check-*
 
-RUN apt-get install -y git subversion mercurial bash patch make zip libzip-dev \
-    && docker-php-ext-configure zip --with-libzip \
-    && docker-php-ext-install -j$(nproc) zip
+RUN apt-get install -y ssmtp \
+    && echo "mailhub=mailhog:1025" >> /etc/ssmtp/ssmtp.conf
 
-COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
-
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /tmp
-
-WORKDIR /app
-
-CMD ["composer"]
+COPY ./mailhog.ini /usr/local/etc/php/conf.d/mailhog.ini
 LABEL maintainer="fundraising-tech@wikimedia.de"
 
 ARG BUILD_DATE

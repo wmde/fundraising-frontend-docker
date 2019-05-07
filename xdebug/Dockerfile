@@ -1,4 +1,6 @@
+#
 # This is an automatically generated Dockerfile, do not change this!
+#
 FROM php:7.3-fpm
 
 RUN mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/cache \

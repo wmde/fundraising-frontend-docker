@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 $PHP_VERSION = "7.3";
@@ -101,10 +102,11 @@ ENTRYPOINT [ "/tmp/vendor/bin/phpstan" ]
 STAN;
 
 $dockerfiles = [
-  'latest' => [ $headerTemplate, $baseTemplate, $mailTemplate, $labelTemplate ],
-  'xdebug' => [ $headerTemplate, $baseTemplate, $mailTemplate, $xdebugTemplate, $labelTemplate ],
+  'latest' =>   [ $headerTemplate, $baseTemplate, $labelTemplate ],
+  'dev' =>      [ $headerTemplate, $baseTemplate, $mailTemplate, $labelTemplate ],
+  'xdebug' =>   [ $headerTemplate, $baseTemplate, $mailTemplate, $xdebugTemplate, $labelTemplate ],
   'composer' => [ $headerTemplate, $baseTemplate, $composerTemplate, $labelTemplate ],
-  'stan' => [ $headerTemplate, $baseTemplate, $composerTemplate, $stanTemplate, $labelTemplate ],
+  'stan' =>     [ $headerTemplate, $baseTemplate, $composerTemplate, $stanTemplate, $labelTemplate ],
 ];
 
 foreach ( $dockerfiles as $path => $templates ) {
