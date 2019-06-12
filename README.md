@@ -6,7 +6,7 @@ This repository provides Dockerfiles for the different [WMDE Fundraising Appplic
 * [`dev`](https://github.com/wmde/fundraising-frontend-docker/blob/master/dev/Dockerfile) - Similar to the base image, but with [ssmtp](https://wiki.debian.org/sSMTP) for sending mails on port 1025 to a dummy hostname called `mailhog`.
 * [`xdebug`](https://github.com/wmde/fundraising-frontend-docker/blob/master/xdebug/Dockerfile) - Similar to `dev`, but with [xdebug](https://xdebug.org/) installed. With this image you can debug the application and generate code coverage information during unit tests.
 * [`composer`](https://github.com/wmde/fundraising-frontend-docker/blob/master/composer/Dockerfile) - A drop-in replacement for the `composer` command, compatible with all requirements in the `composer.json` file of the Fundraising Application.
-* [`stab`](https://github.com/wmde/fundraising-frontend-docker/blob/master/stan/Dockerfile) - Static code analyzer PHPStan that runs inside the runtime environment of the base image.
+* [`stan`](https://github.com/wmde/fundraising-frontend-docker/blob/master/stan/Dockerfile) - Static code analyzer PHPStan that runs inside the runtime environment of the base image.
 
 
 ## Regenerating the Dockerfiles
