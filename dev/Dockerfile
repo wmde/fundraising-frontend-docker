@@ -33,8 +33,8 @@ RUN docker-php-source extract \
     && docker-php-source delete \
     && rm -rf /tmp/konto_check-*
 
-RUN apt-get install -y ssmtp \
-    && echo "mailhub=mailhog:1025" >> /etc/ssmtp/ssmtp.conf
+RUN apt-get install -y msmtp \
+    && printf "account default\nhost mailhog\nport 1025\nauto_from on\n" > /etc/msmtprc
 
 COPY ./mailhog.ini /usr/local/etc/php/conf.d/mailhog.ini
 ARG BUILD_DATE
