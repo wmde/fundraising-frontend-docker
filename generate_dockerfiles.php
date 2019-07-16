@@ -66,8 +66,8 @@ LABEL org.label-schema.version=$BUILD_VERSION
 LBL;
 
 $mailTemplate = <<<MAIL
-RUN apt-get install -y ssmtp \
-    && echo "mailhub=mailhog:1025" >> /etc/ssmtp/ssmtp.conf
+RUN apt-get install -y msmtp \
+    && printf "account default\\nhost mailhog\\nport 1025\\nauto_from on\\n" > /etc/msmtprc
 
 COPY ./mailhog.ini /usr/local/etc/php/conf.d/mailhog.ini
 MAIL;
