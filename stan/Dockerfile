@@ -46,7 +46,7 @@ WORKDIR /app
 
 CMD ["composer"]
 RUN composer global require phpstan/phpstan ^0.11
-ENTRYPOINT [ "/tmp/vendor/bin/phpstan" ]
+ENTRYPOINT [ "php", "-d", "memory_limit=-1", "/tmp/vendor/bin/phpstan" ]
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BUILD_VERSION

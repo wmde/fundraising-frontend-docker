@@ -96,7 +96,7 @@ COMPOSER;
 
 $stanTemplate = <<<STAN
 RUN composer global require phpstan/phpstan $PHPSTAN_VERSION
-ENTRYPOINT [ "/tmp/vendor/bin/phpstan" ]
+ENTRYPOINT [ "php", "-d", "memory_limit=-1", "/tmp/vendor/bin/phpstan" ]
 STAN;
 
 $dockerfiles = [
