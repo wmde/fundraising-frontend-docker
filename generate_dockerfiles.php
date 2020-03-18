@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-$PHP_VERSION = "7.3";
-$XDEBUG_VERSION = "2.7.2";
-$KONTOCHECK_VERSION = "6.08";
-$COMPOSER_VERSION = "1.8";
-$PHPSTAN_VERSION = "^0.11";
+$PHP_VERSION = "7.4";
+$XDEBUG_VERSION = "2.9.3";
+$KONTOCHECK_VERSION = "6.11";
+$COMPOSER_VERSION = "1.10.1";
+$PHPSTAN_VERSION = "^0.12";
 
 $headerTemplate = <<<HD
 #
@@ -21,17 +21,16 @@ RUN mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/cache \
     && mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/log \
     && chown -R www-data:www-data /usr/share/nginx/www/spenden.wikimedia.de/current/var
 
+# Installing php extensions
+# The following php extensions are assumed to be present: xml curl mbstring pdo_sqlite
 RUN apt-get update \
+	# regex library needed for PHP 7.4
+	&& apt-get install libonig-dev \
     # for intl
     && apt-get install -y libicu-dev \
-    # for curl
-    && apt-get install -y libcurl3-dev \
-    # for xml
-    && apt-get install -y libxml2-dev \
     # for konto_check
-    && apt-get install -y unzip libz-dev \
-    #&& docker-php-ext-install -j$(nproc) pdo_sqlite \
-    && docker-php-ext-install -j$(nproc) intl curl xml pdo_mysql mbstring
+	&& apt-get install -y unzip libz-dev \
+    && docker-php-ext-install -j$(nproc) intl pdo_mysql
 
 RUN docker-php-source extract \
     && cd /tmp \
@@ -81,7 +80,6 @@ XDEBUG;
 
 $composerTemplate = <<<COMPOSER
 RUN apt-get install -y git subversion mercurial bash patch make zip libzip-dev \
-    && docker-php-ext-configure zip --with-libzip \
     && docker-php-ext-install -j$(nproc) zip
 
 COPY --from=composer:$COMPOSER_VERSION /usr/bin/composer /usr/bin/composer

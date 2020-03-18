@@ -1,35 +1,34 @@
 #
 # This is an automatically generated Dockerfile, do not change this!
 #
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 RUN mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/cache \
     && mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/doctrine_proxies \
     && mkdir -p /usr/share/nginx/www/spenden.wikimedia.de/current/var/log \
     && chown -R www-data:www-data /usr/share/nginx/www/spenden.wikimedia.de/current/var
 
+# Installing php extensions
+# The following php extensions are assumed to be present: xml curl mbstring pdo_sqlite
 RUN apt-get update \
+	# regex library needed for PHP 7.4
+	&& apt-get install libonig-dev \
     # for intl
     && apt-get install -y libicu-dev \
-    # for curl
-    && apt-get install -y libcurl3-dev \
-    # for xml
-    && apt-get install -y libxml2-dev \
     # for konto_check
-    && apt-get install -y unzip libz-dev \
-    #&& docker-php-ext-install -j$(nproc) pdo_sqlite \
-    && docker-php-ext-install -j$(nproc) intl curl xml pdo_mysql mbstring
+	&& apt-get install -y unzip libz-dev \
+    && docker-php-ext-install -j$(nproc) intl pdo_mysql
 
 RUN docker-php-source extract \
     && cd /tmp \
-    && curl -Ls -o konto_check-6.08.zip https://sourceforge.net/projects/kontocheck/files/konto_check-de/6.08/konto_check-6.08.zip/download  \
+    && curl -Ls -o konto_check-6.11.zip https://sourceforge.net/projects/kontocheck/files/konto_check-de/6.11/konto_check-6.11.zip/download  \
     && unzip konto_check-*.zip \
-    && cd konto_check-6.08 \
+    && cd konto_check-6.11 \
     && cp blz.lut2f /etc/blz.lut \
     && unzip php.zip \
     && cd php \
-    && docker-php-ext-configure /tmp/konto_check-6.08/php \
-    && docker-php-ext-install /tmp/konto_check-6.08/php \
+    && docker-php-ext-configure /tmp/konto_check-6.11/php \
+    && docker-php-ext-install /tmp/konto_check-6.11/php \
     && docker-php-source delete \
     && rm -rf /tmp/konto_check-*
 
@@ -37,7 +36,7 @@ RUN apt-get install -y msmtp \
     && printf "account default\nhost mailhog\nport 1025\nauto_from on\n" > /etc/msmtprc
 
 COPY ./mailhog.ini /usr/local/etc/php/conf.d/mailhog.ini
-RUN pecl install xdebug-2.7.2 \
+RUN pecl install xdebug-2.9.3 \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
