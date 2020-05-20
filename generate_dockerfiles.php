@@ -2,9 +2,9 @@
 <?php
 
 $PHP_VERSION = "7.4";
-$XDEBUG_VERSION = "2.9.4";
+$XDEBUG_VERSION = "2.9.5";
 $KONTOCHECK_VERSION = "6.11";
-$COMPOSER_VERSION = "1.10.5";
+$COMPOSER_VERSION = "1.10.6";
 $PHPSTAN_VERSION = "^0.12";
 
 $headerTemplate = <<<HD
