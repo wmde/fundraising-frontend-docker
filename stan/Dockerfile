@@ -35,7 +35,7 @@ RUN docker-php-source extract \
 RUN apt-get install -y git subversion mercurial bash patch make zip libzip-dev \
     && docker-php-ext-install -j$(nproc) zip
 
-COPY --from=composer:1.10.6 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1.10.7 /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
