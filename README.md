@@ -8,7 +8,6 @@ This repository provides Dockerfiles for the different [WMDE Fundraising Appplic
 * [`composer`](https://github.com/wmde/fundraising-frontend-docker/blob/master/composer/Dockerfile) - A drop-in replacement for the `composer` command, compatible with all requirements in the `composer.json` file of the Fundraising Application.
 * [`stan`](https://github.com/wmde/fundraising-frontend-docker/blob/master/stan/Dockerfile) - Static code analyzer PHPStan that runs inside the runtime environment of the base image.
 
-
 ## Regenerating the Dockerfiles
 The Dockerfiles are automatically generated from templates which contain shared similar steps. If you want to change the contents of the dockerfiles, change the templates in [`generate_dockerfiles.php`](generate_dockerfiles.php) and run the script again.
 
@@ -29,3 +28,16 @@ If you want to version different builds, add a version tag to the environment na
     ./build.sh -p -t 1.2.0
 
 This will create build tagged with `latest-1.2.0`, `dev-1.2.0`, etc.
+
+## Pulling the newest versions
+
+Run the following commands to get the newest versions of the images:
+
+```shell
+docker pull wikimediade/fundraising-frontend:latest
+docker pull wikimediade/fundraising-frontend:dev
+docker pull wikimediade/fundraising-frontend:xdebug
+docker pull wikimediade/fundraising-frontend:composer
+docker pull wikimediade/fundraising-frontend:stan
+```
+
