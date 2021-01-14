@@ -32,6 +32,7 @@ do
   fi
   set -e
   docker build \
+	--pull \
     --build-arg VCS_REF=$VCS_REF \
     --build-arg BUILD_VERSION=$BUILD_VERSION \
     --build-arg BUILD_DATE=$BUILD_DATE \
