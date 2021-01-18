@@ -21,21 +21,21 @@ RUN apt-get update \
 
 RUN docker-php-source extract \
     && cd /tmp \
-    && curl -Ls -o konto_check-6.11.zip https://sourceforge.net/projects/kontocheck/files/konto_check-de/6.11/konto_check-6.11.zip/download  \
+    && curl -Ls -o konto_check-6.13.zip https://sourceforge.net/projects/kontocheck/files/konto_check-de/6.13/konto_check-6.13.zip/download  \
     && unzip konto_check-*.zip \
-    && cd konto_check-6.11 \
+    && cd konto_check-6.13 \
     && cp blz.lut2f /etc/blz.lut \
     && unzip php.zip \
     && cd php \
-    && docker-php-ext-configure /tmp/konto_check-6.11/php \
-    && docker-php-ext-install /tmp/konto_check-6.11/php \
+    && docker-php-ext-configure /tmp/konto_check-6.13/php \
+    && docker-php-ext-install /tmp/konto_check-6.13/php \
     && docker-php-source delete \
     && rm -rf /tmp/konto_check-*
 
 RUN apt-get install -y git subversion mercurial bash patch make zip libzip-dev \
     && docker-php-ext-install -j$(nproc) zip
 
-COPY --from=composer:1.10.15 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0.8 /usr/bin/composer /usr/bin/composer
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
